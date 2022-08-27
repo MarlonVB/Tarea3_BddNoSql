@@ -1,0 +1,71 @@
+/**Crear la colección 'libros' (si existe eliminar la colección previamente) y cargar los siguientes
+documentos: **/
+use('dblibrosYseries_marlon');
+//db.dropDatabase();
+db.data.libros.insertMany([
+    {
+        _id: 1,
+        titulo: 'El aleph',
+        autor: {
+            nombre: 'Borges',
+            nacionalidad: 'Argentina'
+        },
+        editorial: ['Siglo XXI','Planeta'],
+        precio: 20,
+        cantidad: 50
+    },
+    {
+        _id: 2,
+        titulo: 'Martin Fierro',
+        autor: {
+            nombre: 'Jose Hernandez',
+            nacionalidad: 'Argentina'
+        },
+        editorial: ['Siglo XXI'],
+        precio: 50,
+        cantidad: 12
+    },
+    {
+        _id: 3,
+        titulo: 'Aprenda PHP',
+        autor: {
+            nombre: 'Mario Molina',
+            nacionalidad: 'Española'
+        },
+        editorial: ['Siglo XXI','Planeta'],
+        precio: 50,
+        cantidad: 20
+    },
+    {
+        _id: 4,
+        autor: {
+            nombre: 'Java en 10 minutos',
+            nacionalidad: 'Española'
+        },
+        editorial: ['Siglo XXI'],
+        precio: 45,
+        cantidad: 1
+    }
+
+]);
+
+
+/**Imprimir todos los libros de autores de nacionalidad 'Argentina'**/
+use('dblibros_marlon');
+//db.data.libros.find({});
+db.data.find({'autor.nacionalidad': 'Argentina'});
+
+/**Imprimir los libros de 'Borges'**/
+use('dblibros_marlon');
+db.data.find({'autor.nombre': 'Borges'});
+
+/**Imprimir todos los libros de nacionalidad 'Española' que cuestan 50 o más.**/
+use('dblibros_marlon');
+db.data.find(
+    {
+        $and: [
+            {'autor.nacionalidad': 'Española'},
+            {precio: {$gte:50}}
+        ]
+    }
+);
